@@ -1,6 +1,7 @@
 package com.example.mysqlvsnosql.mysql.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -64,7 +65,7 @@ public class Player {
     @OneToMany(mappedBy = "awayPlayer11", fetch = FetchType.LAZY)
     private Set<Match> matchawayPlayer11=new HashSet<Match>();
 
-
+    //@JsonIgnore
     public Long getPlayerApiId() {
         return playerApiId;
     }
@@ -84,91 +85,91 @@ public class Player {
     public int getWeight() {
         return weight;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer1() {
         return matchhomePlayer1;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer2() {
         return matchhomePlayer2;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer3() {
         return matchhomePlayer3;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer4() {
         return matchhomePlayer4;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer5() {
         return matchhomePlayer5;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer6() {
         return matchhomePlayer6;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer7() {
         return matchhomePlayer7;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer8() {
         return matchhomePlayer8;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer9() {
         return matchhomePlayer9;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer10() {
         return matchhomePlayer10;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchhomePlayer11() {
         return matchhomePlayer11;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer1() {
         return matchawayPlayer1;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer2() {
         return matchawayPlayer2;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer3() {
         return matchawayPlayer3;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer4() {
         return matchawayPlayer4;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer5() {
         return matchawayPlayer5;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer6() {
         return matchawayPlayer6;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer7() {
         return matchawayPlayer7;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer8() {
         return matchawayPlayer8;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer9() {
         return matchawayPlayer9;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer10() {
         return matchawayPlayer10;
     }
-
+    @JsonIgnore
     public Set<Match> getMatchawayPlayer11() {
         return matchawayPlayer11;
     }

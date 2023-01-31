@@ -4,6 +4,8 @@ package com.example.mysqlvsnosql.mysql.models;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -16,22 +18,21 @@ public class Match {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "country_id", nullable = true)
-    Country countryId;
+    Country country;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "league_id", nullable = true)
-    League leagueId;
+    League league;
     String season;
     int stage;
     Date date;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "home_team_api_id", nullable = true)
-    Team homeTeamId;
+    Team homeTeam;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "away_team_api_id", nullable = true)
-    Team awayTeamId;
+    Team awayTeam;
     int homeTeamGoal;
     int awayTeamGoal;
 
@@ -114,13 +115,13 @@ public class Match {
     public Long getId() {
         return id;
     }
-
-    public Country getCountryId() {
-        return countryId;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public Country getCountry() {
+        return country;
     }
-
-    public League getLeagueId() {
-        return leagueId;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public League getLeague() {
+        return league;
     }
 
     public String getSeason() {
@@ -134,13 +135,13 @@ public class Match {
     public Date getDate() {
         return date;
     }
-
-    public Team getHomeTeamId() {
-        return homeTeamId;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public Team getHomeTeam() {
+        return homeTeam;
     }
-
-    public Team getAwayTeamId() {
-        return awayTeamId;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public Team getAwayTeam() {
+        return awayTeam;
     }
 
     public int getHomeTeamGoal() {
@@ -150,91 +151,87 @@ public class Match {
     public int getAwayTeamGoal() {
         return awayTeamGoal;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer1() {
         return homePlayer1;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer2() {
         return homePlayer2;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer3() {
         return homePlayer3;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer4() {
         return homePlayer4;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer5() {
         return homePlayer5;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer6() {
         return homePlayer6;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer7() {
         return homePlayer7;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer8() {
         return homePlayer8;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getHomePlayer9() {
         return homePlayer9;
     }
-
-    public Player getHomePlayer10() {
-        return homePlayer10;
-    }
-
-    public Player getHomePlayer11() {
-        return homePlayer11;
-    }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public Player getHomePlayer10() {return homePlayer10;}
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public Player getHomePlayer11() {return homePlayer11;}
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer1() {
         return awayPlayer1;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer2() {
         return awayPlayer2;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer3() {
         return awayPlayer3;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer4() {
         return awayPlayer4;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer5() {
         return awayPlayer5;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer6() {
         return awayPlayer6;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer7() {
         return awayPlayer7;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer8() {
         return awayPlayer8;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer9() {
         return awayPlayer9;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer10() {
         return awayPlayer10;
     }
-
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Player getAwayPlayer11() {
         return awayPlayer11;
     }
@@ -275,12 +272,12 @@ public class Match {
         this.id = id;
     }
 
-    public void setCountryId(Country countryId) {
-        this.countryId = countryId;
+    public void setCountry(Country countryId) {
+        this.country = countryId;
     }
 
-    public void setLeagueId(League leagueId) {
-        this.leagueId = leagueId;
+    public void setLeague(League league) {
+        this.league = league;
     }
 
     public void setSeason(String season) {
@@ -295,12 +292,12 @@ public class Match {
         this.date = date;
     }
 
-    public void setHomeTeamId(Team homeTeamId) {
-        this.homeTeamId = homeTeamId;
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
     }
 
-    public void setAwayTeamId(Team awayTeamId) {
-        this.awayTeamId = awayTeamId;
+    public void setAwayTeam(Team awayTeam) {
+        this.awayTeam = awayTeam;
     }
 
     public void setHomeTeamGoal(int homeTeamGoal) {
