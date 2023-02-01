@@ -26,5 +26,9 @@ public class Team {
 
     private String teamShortName;
 
+    public Team(){
+
+    }
+
 
 }
