@@ -2,6 +2,7 @@ package com.example.mysqlvsnosql.mysql.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -11,16 +12,21 @@ import java.util.Set;
 public class Team {
 
     @Id
+    @Column(name = "team_api_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Expose(serialize = true, deserialize = true)
     private Long teamApiId;
+    @Expose
     private String teamLongName;
+    @Expose
     private String teamShortName;
+    @JsonIgnore
     @OneToMany(mappedBy = "homeTeam", fetch = FetchType.LAZY)
     private Set<Match> matchHome=new HashSet<Match>();
+    @JsonIgnore
     @OneToMany(mappedBy = "awayTeam", fetch = FetchType.LAZY)
     private Set<Match> matchAway=new HashSet<Match>();
-    @OneToMany(mappedBy = "teamApiId", fetch = FetchType.LAZY)
-    private Set<TeamAttributes> teamAttributes=new HashSet<TeamAttributes>();;
-    //@JsonIgnore
+
     public Long getTeamApiId() {
         return teamApiId;
     }
@@ -31,18 +37,6 @@ public class Team {
 
     public String getTeamShortName() {
         return teamShortName;
-    }
-    @JsonIgnore
-    public Set<Match> getMatchHome() {
-        return matchHome;
-    }
-    @JsonIgnore
-    public Set<Match> getMatchAway() {
-        return matchAway;
-    }
-    @JsonIgnore
-    public Set<TeamAttributes> getTeamAttributes() {
-        return teamAttributes;
     }
 
     public void setTeamApiId(Long teamApiId) {

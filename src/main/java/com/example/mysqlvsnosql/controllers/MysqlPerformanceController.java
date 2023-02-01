@@ -11,11 +11,14 @@ import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import javax.sound.midi.SysexMessage;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,15 +32,14 @@ public class MysqlPerformanceController {
     MatchService matchService;
     @Autowired
     LeagueService leagueService;
-    @Autowired
-    TeamService teamService;
-    @Autowired
-    PlayerService playerService;
+
 
     private final String League100_JSON = "/data/100leaguemysql.json";
     private final String League1000_JSON = "/data/1000leaguemysql.json";
     private final String League10000_JSON = "/data/10000leaguemysql.json";
-    private final String Match_JSON = "C:\\Users\\grzes\\OneDrive\\Pulpit\\ProjektBazy\\src\\main\\resources\\data\\matchestest.json";
+    private final String Match10000_JSON = "C:\\Users\\grzes\\OneDrive\\Pulpit\\ProjektBazy\\src\\main\\resources\\data\\100Matchesmysql.json";
+    private final String Match10000mongo_JSON = "C:\\Users\\grzes\\OneDrive\\Pulpit\\ProjektBazy\\src\\main\\resources\\data\\100Matchesmongo.json";
+
 
     @RequestMapping("mysql/insertintoleague/100")
     public String insert100Leagues(){
@@ -181,14 +183,55 @@ public class MysqlPerformanceController {
 
 
     @RequestMapping("/getmatches")
-    public String getmatches() {
+    public List<Match> getmatches() {
+
+            List<Match> matches = matchService.listAll();
+            return  matches;
+
+    }
+    /*
+    @RequestMapping("/savematches")
+    public String inserttestMatch(){
+
+        try {
+            TypeReference<List<Match>> typeReference = new TypeReference<List<Match>>() {
+            };
+            InputStream inputStream = TypeReference.class.getResourceAsStream(Match_JSON);
+            List<Match> leagues = new ObjectMapper().readValue(inputStream, typeReference);
+            Long startTime,totalTime;
+            startTime=System.currentTimeMillis();
+            //System.out.println(leagues.get(0).getAwayPlayer1().getPlayerName());
+            Match match = new Match();
+            match.setCountry(leagues.get(0).getCountry());
+            match.setLeague(leagues.get(0).getLeague());
+            //matchService.save(match);
+            matchService.saveAll(leagues);
+            totalTime = System.currentTimeMillis()-startTime;
+            return "Czas dodania 1000 rekordów do tabeli League: "+totalTime+"ms";
+        }
+        catch (Exception ex){
+            return "Błąd zapytania" +ex;
+        }
+
+
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping("/getmatchesfile")
+    public String getmatchestofile() {
 
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd")
-                    .registerTypeAdapterFactory( HibernateProxyTypeAdapter.FACTORY).create() ;
-            long id = 500;
-                Match match = matchService.findById(id);
-            gson.toJson(match, new FileWriter(Match_JSON));
+                    .registerTypeAdapterFactory( HibernateProxyTypeAdapter.FACTORY).excludeFieldsWithoutExposeAnnotation().create() ;
+
+            List <Match> match = matchService.listAll();
+            //gson.toJson(match, new FileWriter(Match10000_JSON));
+            Writer writer = new FileWriter(Match10000mongo_JSON);
+            gson.toJson(match, writer);
+            writer.flush(); //flush data to file   <---
+            writer.close();
             return  "eksport zakonczony";
         }
         catch (Exception e){
@@ -197,7 +240,7 @@ public class MysqlPerformanceController {
 
 
     }
-
+*/
 
 
 }

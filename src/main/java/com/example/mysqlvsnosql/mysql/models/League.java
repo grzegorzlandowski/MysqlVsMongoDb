@@ -3,6 +3,7 @@ package com.example.mysqlvsnosql.mysql.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -14,14 +15,17 @@ public class League {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Expose(serialize = true, deserialize = true)
     private Long id;
-
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "country_id", nullable = true)
+    @Expose
     private Country country;
+    @Expose
     private String name;
-    @OneToMany(mappedBy = "league", fetch = FetchType.LAZY,cascade = CascadeType.ALL )
+    @JsonIgnore
+    @OneToMany(mappedBy = "league", fetch = FetchType.LAZY)
     private Set<Match> match=new HashSet<Match>();
 
     public League() {

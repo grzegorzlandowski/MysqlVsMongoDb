@@ -1,5 +1,6 @@
 package com.example.mysqlvsnosql.mysql.services;
 
+import com.example.mysqlvsnosql.mysql.models.League;
 import com.example.mysqlvsnosql.mysql.models.Match;
 import com.example.mysqlvsnosql.mysql.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class MatchService {
     public Match findById(Long id){
 
         return repo.findById(id).get();
+    }
+
+    public void saveAll(List <Match> matches){
+
+        repo.saveAll(matches);
     }
 
 }

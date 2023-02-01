@@ -3,6 +3,7 @@ package com.example.mysqlvsnosql.mysql.models;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.web.servlet.View;
@@ -16,12 +17,13 @@ public class Country {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Expose(serialize = true, deserialize = true)
     Long id;
+    @Expose(serialize = true, deserialize = true)
     String name;
     @JsonIgnore
-    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="country", fetch = FetchType.LAZY)
     private Set<Match>  match=new HashSet<Match>();
-
     @JsonIgnore
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private Set<League>  league=new HashSet<League>();
