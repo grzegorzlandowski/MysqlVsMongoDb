@@ -4,6 +4,7 @@ import com.example.mysqlvsnosql.mysql.models.League;
 import com.example.mysqlvsnosql.mysql.models.Match;
 import com.example.mysqlvsnosql.mysql.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,22 @@ public class MatchService {
     public void saveAll(List <Match> matches){
 
         repo.saveAll(matches);
+    }
+    public List<Match> findmatchbyleagueandhometeam(String leaguename,String hometeamname){
+        return repo.findmatchbyleagueandhometeam(leaguename,hometeamname);
+    }
+
+    public void deleteAll(){
+
+        repo.deleteAll();
+    }
+
+    public void Updatebyleagueandhometeam(int goal,String leaguename,String hometeamname){
+        repo.Updatebyleagueandhometeam(goal,leaguename,hometeamname);
+    }
+    public void deletebyteams(String hometeam,String awayteam){
+
+        repo.deletebyteams(hometeam,awayteam);
     }
 
 }

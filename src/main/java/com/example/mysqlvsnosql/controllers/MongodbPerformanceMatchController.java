@@ -5,6 +5,7 @@ import com.example.mysqlvsnosql.mongodb.services.MatchServiceMongo;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -70,10 +71,68 @@ public class MongodbPerformanceMatchController {
             startTime=System.currentTimeMillis();
             matchServiceMongo.saveAll(matches);
             totalTime = System.currentTimeMillis()-startTime;
-            return "Czas dodania 100 rekordów do tabeli Match: "+totalTime+"ms";
+            return "Czas dodania 10000 rekordów do tabeli Match: "+totalTime+"ms";
         }
         catch (Exception ex){
             return "Błąd zapytania" + ex;
         }
     }
+
+    @RequestMapping("mongodb/findmatchbyleagueandhometeam/{leaguename}/{hometeamname}")
+    public String findmongomatchbyleagueandhometeam(@PathVariable("leaguename") String leaguename, @PathVariable("hometeamname")String hometeamname) {
+        Long startTime,totalTime;
+        try{
+            startTime=System.currentTimeMillis();
+            matchServiceMongo.findmatchbyleagueandhometeam(leaguename,hometeamname);
+            totalTime = System.currentTimeMillis()-startTime;
+            return "Czas Wyświetlenia elementu: "+totalTime+"ms";
+        }
+        catch(Exception e){
+            return "błąd podczas usuwania";
+        }
+    }
+
+    @RequestMapping("mongodb/deletealllmatches")
+    public String deleteAllLeague(){
+        Long startTime,totalTime;
+        try{
+            startTime=System.currentTimeMillis();
+            matchServiceMongo.deleteAll();
+            totalTime = System.currentTimeMillis()-startTime;
+            return "usunięto wszystkie Rekordóy Czas: "+totalTime+"ms";
+        }
+        catch(Exception e){
+            return "błąd podczas usuwania";
+        }
+    }
+
+    @RequestMapping("mongodb/Updatebyleagueandhometeam/{leaguename}/{hometeamname}")
+    public String UpdateMatchessParameters(@PathVariable("leaguename") String leaguename,@PathVariable("hometeamname")String hometeamname) {
+        Long startTime,totalTime;
+        try{
+            startTime=System.currentTimeMillis();
+            matchServiceMongo.updateByleagueandhometeam("West Ham United","12");
+            totalTime = System.currentTimeMillis()-startTime;
+            return "Czas Zmiany liczy goli: "+totalTime+"ms";
+        }
+        catch(Exception e){
+            return "błąd podczas usuwania" +e;
+        }
+    }
+
+    @RequestMapping("mongodb/deletebyteams")
+    public String deletebyTeamsMongo() {
+        Long startTime,totalTime;
+        try{
+            startTime=System.currentTimeMillis();
+            matchServiceMongo.deleteByTeams("Arsenal","West Ham United");
+            totalTime = System.currentTimeMillis()-startTime;
+            return "Czas usuniecia meczów Arsenal - West Ham: "+totalTime+"ms";
+        }
+        catch(Exception e){
+            return "błąd podczas usuwania";
+        }
+    }
+
+
 }

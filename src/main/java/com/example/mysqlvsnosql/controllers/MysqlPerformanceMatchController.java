@@ -7,6 +7,7 @@ import com.example.mysqlvsnosql.mysql.services.MatchService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -79,6 +80,58 @@ public class MysqlPerformanceMatchController {
         }
         catch (Exception ex){
             return "Błąd zapytania" + ex;
+        }
+    }
+
+    @RequestMapping("mysql/findmatchbyleagueandhometeam/{leaguename}/{hometeamname}")
+    public String findmatchbyleagueandhometeam(@PathVariable("leaguename") String leaguename,@PathVariable("hometeamname")String hometeamname) {
+        Long startTime,totalTime;
+        try{
+            startTime=System.currentTimeMillis();
+            matchService.findmatchbyleagueandhometeam(leaguename,hometeamname);
+            totalTime = System.currentTimeMillis()-startTime;
+            return "Czas Wyświetlenia elementu: "+totalTime+"ms";
+        }
+        catch(Exception e){
+            return "błąd podczas usuwania";
+        }
+    }
+
+    @RequestMapping("mysql/deleteallmatches")
+    public String deleteLeague() {
+
+        Long startTime,totalTime;
+        startTime=System.currentTimeMillis();
+        matchService.deleteAll();
+        totalTime = System.currentTimeMillis()-startTime;
+        return "usunięto wszystkie Rekordóy Czas: "+ totalTime+"ms" ;
+    }
+
+    @RequestMapping("mysql/Updatebyleagueandhometeam/{leaguename}/{hometeamname}")
+    public String UpdateMatchesParameters(@PathVariable("leaguename") String leaguename,@PathVariable("hometeamname")String hometeamname) {
+        Long startTime,totalTime;
+        try{
+            startTime=System.currentTimeMillis();
+            matchService.Updatebyleagueandhometeam(10,leaguename,hometeamname);
+            totalTime = System.currentTimeMillis()-startTime;
+            return "Czas Zmiany liczy goli: "+totalTime+"ms";
+        }
+        catch(Exception e){
+            return "błąd podczas usuwania";
+        }
+    }
+
+    @RequestMapping("mysql/deletebyteams")
+    public String deletebyTeams() {
+        Long startTime,totalTime;
+        try{
+            startTime=System.currentTimeMillis();
+            matchService.deletebyteams("Arsenal","West Ham United");
+            totalTime = System.currentTimeMillis()-startTime;
+            return "Czas usuniecia meczów Arsenal - West Ham: "+totalTime+"ms";
+        }
+        catch(Exception e){
+            return "błąd podczas usuwania";
         }
     }
 }
